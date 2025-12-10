@@ -127,16 +127,17 @@ const Services = () => {
               className="group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl blur-xl" />
-              <div className="relative h-full p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+              <div className="relative h-full p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 group">
                 <motion.div
-                  className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4`}
+                  className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >
                   <service.icon className="w-8 h-8 text-white" />
                 </motion.div>
-                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{service.title}</h3>
+                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{service.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/0 to-primary-500/0 group-hover:from-primary-500/5 group-hover:to-primary-500/10 rounded-2xl transition-all duration-300 pointer-events-none" />
               </div>
             </motion.div>
           ))}

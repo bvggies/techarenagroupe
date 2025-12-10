@@ -103,7 +103,7 @@ const CodeLoop = () => {
       <div className={`absolute inset-0 bg-gradient-to-r ${currentSnippet.color} opacity-20 blur-3xl rounded-2xl animate-pulse`} />
       
       {/* Code Container */}
-      <div className="relative bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 dark:border-gray-600/50 shadow-2xl">
+      <div className="relative bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-md rounded-2xl p-6 border border-gray-700/50 dark:border-gray-600/50 shadow-2xl ring-1 ring-white/10">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">

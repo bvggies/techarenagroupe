@@ -92,7 +92,7 @@ const Projects = () => {
 
         {/* Featured Projects Slideshow */}
         <div className="mb-12">
-          <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200 dark:ring-gray-700">
             <AnimatePresence mode="wait">
               {featuredProjects.map((project, index) => {
                 if (index !== currentSlide) return null

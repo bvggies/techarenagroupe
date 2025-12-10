@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { FiMail, FiPhone } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
+import SocialLinks from './SocialLinks'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -157,10 +158,13 @@ const Footer = () => {
           </motion.div>
         </div>
 
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-400">
-              © {currentYear} TechArena Groupe. All rights reserved.
-            </p>
+          <div className="border-t border-gray-800 dark:border-gray-700 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-gray-400 dark:text-gray-500 text-center md:text-left">
+                © {currentYear} TechArena Groupe. All rights reserved.
+              </p>
+              <SocialLinks />
+            </div>
           </div>
         </div>
       </div>

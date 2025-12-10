@@ -12,7 +12,10 @@ const Features = lazy(() => import('./components/Features'))
 const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'))
 const Projects = lazy(() => import('./components/Projects'))
 const Pricing = lazy(() => import('./components/Pricing'))
+const Partners = lazy(() => import('./components/Partners'))
 const Testimonials = lazy(() => import('./components/Testimonials'))
+const FAQ = lazy(() => import('./components/FAQ'))
+const Newsletter = lazy(() => import('./components/Newsletter'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 
@@ -51,7 +54,10 @@ function App() {
         <WhyChooseUs />
         <Projects />
         <Pricing />
+        <Partners />
         <Testimonials />
+        <FAQ />
+        <Newsletter />
         <Contact />
         <Footer />
       </Suspense>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { FiTarget, FiUsers, FiAward, FiTrendingUp } from 'react-icons/fi'
+import AnimatedCounter from './AnimatedCounter'
 
 const stats = [
   { icon: FiTarget, value: '50+', label: 'Projects Completed', color: 'from-blue-500 to-cyan-500' },
@@ -103,7 +104,9 @@ const About = () => {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1 }}
                 >
-                  <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">{stat.value}</div>
+                  <div className="text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    <AnimatedCounter value={parseInt(stat.value.replace(/\D/g, ''))} suffix={stat.value.includes('%') ? '%' : '+'} />
+                  </div>
                   <div className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
                 </motion.div>
               </motion.div>

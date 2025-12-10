@@ -1,10 +1,17 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { FiArrowDown, FiCode, FiSmartphone, FiGlobe } from 'react-icons/fi'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import CodeLoop from './CodeLoop'
 
 const Hero = () => {
   const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 })
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
   useEffect(() => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight })
@@ -22,7 +29,12 @@ const Hero = () => {
   ]
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <motion.section
+      ref={ref}
+      id="home"
+      style={{ opacity, scale }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+    >
       {/* Animated Background Elements - Reduced on mobile for performance */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 20)].map((_, i) => {
@@ -167,7 +179,7 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
