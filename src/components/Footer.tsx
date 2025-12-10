@@ -1,13 +1,72 @@
 import { motion } from 'framer-motion'
 import { FiMail, FiPhone } from 'react-icons/fi'
+import { useState, useEffect } from 'react'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up')
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+      
+      // Check if we're near the bottom of the page
+      const isNearBottom = currentScrollY + windowHeight >= documentHeight - 100
+      
+      if (isNearBottom) {
+        // Determine scroll direction
+        if (currentScrollY > lastScrollY) {
+          setScrollDirection('down')
+        } else if (currentScrollY < lastScrollY) {
+          setScrollDirection('up')
+        }
+      } else {
+        setScrollDirection('up')
+      }
+      
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+    <footer className="relative bg-gray-900 text-gray-300 py-12 overflow-hidden">
+      {/* Animated Gradient Overlay */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-t from-primary-600/20 via-primary-500/10 to-transparent pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: scrollDirection === 'down' ? 1 : 0,
+        }}
+        transition={{ 
+          duration: 0.5,
+          ease: 'easeInOut'
+        }}
+      />
+      
+      {/* Additional Glow Effect */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-primary-500/30 via-primary-400/20 to-transparent pointer-events-none"
+        initial={{ opacity: 0, scaleY: 0 }}
+        animate={{ 
+          opacity: scrollDirection === 'down' ? 1 : 0,
+          scaleY: scrollDirection === 'down' ? 1 : 0,
+        }}
+        transition={{ 
+          duration: 0.6,
+          ease: 'easeOut'
+        }}
+        style={{ transformOrigin: 'bottom' }}
+      />
+      
+      <div className="relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Company Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,10 +149,11 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-gray-400">
-            © {currentYear} TechArena Groupe. All rights reserved.
-          </p>
+          <div className="border-t border-gray-800 pt-8 text-center">
+            <p className="text-gray-400">
+              © {currentYear} TechArena Groupe. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
