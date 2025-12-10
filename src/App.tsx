@@ -3,6 +3,9 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import ScrollProgress from './components/ScrollProgress'
 import ScrollToTop from './components/ScrollToTop'
+import TechParticles from './components/TechParticles'
+import BinaryRain from './components/BinaryRain'
+import TechStackVisualization from './components/TechStackVisualization'
 
 // Lazy load components below the fold for better initial load
 const About = lazy(() => import('./components/About'))
@@ -44,7 +47,9 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <TechParticles />
+      <BinaryRain />
       <ScrollProgress />
       <Header />
       <Hero />
@@ -52,6 +57,7 @@ function App() {
         <About />
         <Services />
         <TechTicker />
+        <TechStackVisualization />
         <Features />
         <WhyChooseUs />
         <Projects />

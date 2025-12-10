@@ -35,6 +35,23 @@ const Hero = () => {
       style={{ opacity, scale }}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
     >
+      {/* Circuit Pattern Overlay */}
+      <div className="absolute inset-0 opacity-5 dark:opacity-3">
+        <svg className="w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="hero-circuit" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+              <path d="M 0 100 L 200 100 M 100 0 L 100 200 M 0 50 L 50 50 L 50 0 M 150 0 L 150 50 L 200 50 M 0 150 L 50 150 L 50 200 M 150 200 L 150 150 L 200 150" 
+                stroke="currentColor" strokeWidth="2" fill="none" className="text-primary-600" />
+              <circle cx="100" cy="100" r="4" fill="currentColor" className="text-primary-600" />
+              <circle cx="50" cy="50" r="2" fill="currentColor" className="text-primary-600" />
+              <circle cx="150" cy="50" r="2" fill="currentColor" className="text-primary-600" />
+              <circle cx="50" cy="150" r="2" fill="currentColor" className="text-primary-600" />
+              <circle cx="150" cy="150" r="2" fill="currentColor" className="text-primary-600" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-circuit)" />
+        </svg>
+      </div>
       {/* Animated Background Elements - Reduced on mobile for performance */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 20)].map((_, i) => {

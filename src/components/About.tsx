@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { FiTarget, FiUsers, FiAward, FiTrendingUp } from 'react-icons/fi'
 import AnimatedCounter from './AnimatedCounter'
+import TerminalWindow from './TerminalWindow'
 
 const stats = [
   { icon: FiTarget, value: '50+', label: 'Projects Completed', color: 'from-blue-500 to-cyan-500' },
@@ -113,6 +114,17 @@ const About = () => {
             ))}
           </motion.div>
         </div>
+
+        {/* Terminal Window Demo */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="mt-16"
+        >
+          <TerminalWindow />
+        </motion.div>
       </div>
     </section>
   )
