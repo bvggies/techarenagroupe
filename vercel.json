@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "headers": [
         {
           "key": "X-Content-Type-Options",
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "source": "/assets/(.*)",
+      "source": "/assets/:path*",
       "headers": [
         {
           "key": "Cache-Control",
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "source": "/*.js",
+      "source": "/:path*.js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "source": "/*.css",
+      "source": "/:path*.css",
       "headers": [
         {
           "key": "Cache-Control",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "source": "/*.woff2",
+      "source": "/:path*.woff2",
       "headers": [
         {
           "key": "Cache-Control",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "source": "/*.woff",
+      "source": "/:path*.woff",
       "headers": [
         {
           "key": "Cache-Control",
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "source": "/*.ttf",
+      "source": "/:path*.ttf",
       "headers": [
         {
           "key": "Cache-Control",
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "source": "/*.eot",
+      "source": "/:path*.eot",
       "headers": [
         {
           "key": "Cache-Control",
@@ -83,7 +83,7 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "destination": "/index.html"
     }
   ]
