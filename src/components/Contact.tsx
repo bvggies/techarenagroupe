@@ -81,7 +81,7 @@ const Contact = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Let's Build Something Great
           </h2>
-          <p className="text-xl text-primary-100 max-w-2xl mx-auto">
+          <p className="text-xl text-primary-100 dark:text-primary-200 max-w-2xl mx-auto">
             Contact us today to discuss your project and get started
           </p>
         </motion.div>
@@ -97,7 +97,7 @@ const Contact = () => {
           >
             <div>
               <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
-              <p className="text-primary-100 mb-8">
+              <p className="text-primary-100 dark:text-primary-200 mb-8">
                 Ready to transform your business with cutting-edge technology? 
                 Reach out to us and let's discuss how we can help you achieve your goals.
               </p>
@@ -154,7 +154,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-white/10 backdrop-blur-md rounded-2xl p-8"
+            className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-2xl p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

@@ -46,7 +46,7 @@ const Projects = () => {
   const featuredProjects = filteredProjects.slice(0, 6)
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section id="projects" className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -58,7 +58,7 @@ const Projects = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">Our Projects</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Showcasing our expertise across various industries and technologies
           </p>
         </motion.div>
@@ -80,7 +80,7 @@ const Projects = () => {
               className={`px-6 py-2 rounded-full font-semibold transition-all ${
                 selectedCategory === category
                   ? 'bg-primary-600 text-white shadow-lg'
-                  : 'bg-white text-gray-700 hover:bg-primary-50 border border-gray-200'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -202,7 +202,7 @@ const Projects = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
                 onClick={() => {
                   setSelectedProject(project)
                   setIsModalOpen(true)
@@ -239,10 +239,10 @@ const Projects = () => {
 
                 {/* Project Info */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-gray-800 line-clamp-1">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white line-clamp-1">
                     {project.name}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">

@@ -8,9 +8,9 @@ const techStack = [
 
 const TechTicker = () => {
   return (
-    <div className="py-12 bg-gray-900 text-white overflow-hidden">
+    <div className="py-12 bg-gray-900 dark:bg-black text-white overflow-hidden">
       <div className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 dark:from-black via-transparent to-gray-900 dark:to-black z-10" />
         <motion.div
           className="flex space-x-8"
           animate={{

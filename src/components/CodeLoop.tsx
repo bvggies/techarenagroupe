@@ -103,7 +103,7 @@ const CodeLoop = () => {
       <div className={`absolute inset-0 bg-gradient-to-r ${currentSnippet.color} opacity-20 blur-3xl rounded-2xl animate-pulse`} />
       
       {/* Code Container */}
-      <div className="relative bg-gray-900/95 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 shadow-2xl">
+      <div className="relative bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 dark:border-gray-600/50 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
@@ -123,7 +123,7 @@ const CodeLoop = () => {
 
         {/* Code Display */}
         <div className="relative">
-          <pre className="text-sm md:text-base font-mono text-gray-100 overflow-x-auto">
+            <pre className="text-sm md:text-base font-mono text-gray-100 dark:text-gray-200 overflow-x-auto">
             <code>
               {displayedCode.split('\n').map((line, index) => (
                 <motion.div
@@ -133,7 +133,7 @@ const CodeLoop = () => {
                   transition={{ duration: 0.3 }}
                   className="flex items-start"
                 >
-                  <span className="text-gray-500 mr-4 select-none w-6 text-right">
+                  <span className="text-gray-500 dark:text-gray-400 mr-4 select-none w-6 text-right">
                     {index + 1}
                   </span>
                   <span className="flex-1">

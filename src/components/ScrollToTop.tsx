@@ -55,7 +55,7 @@ const ScrollToTop = () => {
             whileTap={{ scale: 0.9 }}
           >
             <FiMessageCircle className="w-5 h-5 md:w-6 md:h-6" />
-            <span className="absolute right-full mr-3 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block">
+            <span className="absolute right-full mr-3 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block">
               WhatsApp Us
             </span>
           </motion.a>
@@ -74,7 +74,7 @@ const ScrollToTop = () => {
             whileTap={{ scale: 0.9 }}
           >
             <FiMail className="w-5 h-5 md:w-6 md:h-6" />
-            <span className="absolute right-full mr-3 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block">
+            <span className="absolute right-full mr-3 px-3 py-1 bg-gray-900 dark:bg-gray-700 text-white text-sm rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block">
               Email Us
             </span>
           </motion.a>

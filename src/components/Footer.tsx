@@ -43,7 +43,7 @@ const Footer = () => {
   }, [lastScrollY])
 
   return (
-    <footer className="relative bg-gray-900 text-gray-300 py-12 overflow-hidden">
+    <footer className="relative bg-gray-900 dark:bg-black text-gray-300 dark:text-gray-400 py-12 overflow-hidden">
       {/* Animated Gradient Overlay */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-t from-primary-600/20 via-primary-500/10 to-transparent pointer-events-none"
@@ -87,7 +87,7 @@ const Footer = () => {
                 alt="TechArena Groupe Logo"
                 className="h-8 w-auto"
               />
-              <span className="text-xl font-bold text-white">TechArena Groupe</span>
+              <span className="text-xl font-bold text-white dark:text-gray-100">TechArena Groupe</span>
             </div>
             <p className="text-gray-400">
               Building innovative tech solutions for your business. 
@@ -102,7 +102,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h3 className="text-white font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-white dark:text-gray-100 font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#home" className="hover:text-primary-400 transition-colors">
@@ -139,7 +139,7 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h3 className="text-white font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-white dark:text-gray-100 font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
                 <FiPhone className="w-5 h-5 text-primary-400" />

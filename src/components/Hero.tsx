@@ -22,7 +22,7 @@ const Hero = () => {
   ]
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Animated Background Elements - Reduced on mobile for performance */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 20)].map((_, i) => {
@@ -76,7 +76,7 @@ const Hero = () => {
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
               <span className="text-gradient">Let's Build</span>
               <br />
-              <span className="text-gray-800">Something Great</span>
+              <span className="text-gray-800 dark:text-white">Something Great</span>
             </h1>
           </motion.div>
 
@@ -84,7 +84,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto"
           >
             Innovative tech solutions for your business. We create responsive websites,
             mobile apps, and custom software that drives results.
@@ -106,7 +106,7 @@ const Hero = () => {
             </motion.a>
             <motion.a
               href="#services"
-              className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold text-lg border-2 border-primary-600 hover:bg-primary-50 transition-colors"
+              className="px-8 py-4 bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 rounded-full font-semibold text-lg border-2 border-primary-600 dark:border-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -143,7 +143,7 @@ const Hero = () => {
                   damping: 10,
                 }}
                 whileHover={{ scale: 1.2, rotate: 360 }}
-                className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg"
+                className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg"
               >
                 <Icon className="w-8 h-8 text-primary-600" />
               </motion.div>

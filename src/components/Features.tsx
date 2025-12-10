@@ -55,7 +55,7 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="features" className="py-20 bg-gradient-to-br from-primary-50 to-white">
+    <section id="features" className="py-20 bg-gradient-to-br from-primary-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -67,7 +67,7 @@ const Features = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">What You Get</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Everything you need for a successful digital presence
           </p>
         </motion.div>
@@ -81,7 +81,7 @@ const Features = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.05, rotate: 1 }}
-              className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
             >
               <motion.div
                 className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4"
@@ -90,8 +90,8 @@ const Features = () => {
               >
                 <feature.icon className="w-6 h-6 text-primary-600" />
               </motion.div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-800">{feature.title}</h3>
-              <p className="text-gray-600 text-sm">{feature.description}</p>
+              <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">{feature.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">{feature.description}</p>
             </motion.div>
           ))}
         </div>

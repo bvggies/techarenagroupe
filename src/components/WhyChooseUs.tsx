@@ -36,7 +36,7 @@ const reasons = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -48,7 +48,7 @@ const WhyChooseUs = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">Why Choose Us?</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             We combine expertise, innovation, and dedication to deliver exceptional results
           </p>
         </motion.div>
@@ -65,7 +65,7 @@ const WhyChooseUs = () => {
               className="group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-0 group-hover:opacity-10 rounded-2xl blur-xl transition-opacity duration-300" />
-              <div className="relative h-full p-6 bg-gradient-to-br from-white to-primary-50 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center">
+              <div className="relative h-full p-6 bg-gradient-to-br from-white to-primary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 text-center">
                 <motion.div
                   className="text-4xl md:text-5xl mb-4"
                   animate={{ 
@@ -77,8 +77,8 @@ const WhyChooseUs = () => {
                 >
                   {reason.emoji}
                 </motion.div>
-                <h3 className="text-xl font-bold mb-2 text-gray-800">{reason.title}</h3>
-                <p className="text-gray-600 text-sm">{reason.description}</p>
+                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{reason.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">{reason.description}</p>
               </div>
             </motion.div>
           ))}

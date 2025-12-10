@@ -98,7 +98,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -110,7 +110,7 @@ const Services = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gradient">We Build</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Comprehensive tech solutions tailored to your business needs
           </p>
         </motion.div>
@@ -127,7 +127,7 @@ const Services = () => {
               className="group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl blur-xl" />
-              <div className="relative h-full p-6 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+              <div className="relative h-full p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
                 <motion.div
                   className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4`}
                   whileHover={{ rotate: 360 }}
@@ -135,8 +135,8 @@ const Services = () => {
                 >
                   <service.icon className="w-8 h-8 text-white" />
                 </motion.div>
-                <h3 className="text-xl font-bold mb-2 text-gray-800">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-white">{service.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
               </div>
             </motion.div>
           ))}

@@ -29,15 +29,15 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-4xl md:w-full z-50 bg-white rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-4xl md:w-full z-50 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
           >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg"
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white dark:hover:bg-gray-600 transition-colors shadow-lg"
               aria-label="Close modal"
             >
-              <FiX className="w-6 h-6 text-gray-700" />
+              <FiX className="w-6 h-6 text-gray-700 dark:text-gray-300" />
             </button>
 
             {/* Project Image */}
@@ -59,25 +59,25 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             {/* Project Content */}
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
               <div className="mb-4">
-                <span className="inline-block px-4 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
+                <span className="inline-block px-4 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-semibold mb-4">
                   {project.category.replace(/\b\w/g, l => l.toUpperCase())}
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
                   {project.name}
                 </h2>
-                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                   {project.description}
                 </p>
               </div>
 
               {/* Tags */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Technologies Used</h3>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-primary-50 text-primary-700 rounded-lg text-sm font-medium"
+                      className="px-3 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-medium"
                     >
                       {tag}
                     </span>
@@ -99,7 +99,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                 </motion.a>
                 <motion.button
                   onClick={onClose}
-                  className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                  className="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
