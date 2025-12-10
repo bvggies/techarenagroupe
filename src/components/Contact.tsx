@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiPhone, FiMail, FiMessageCircle, FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
 import { useState } from 'react'
+import { useToast } from '../contexts/ToastContext'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Contact = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const { showToast } = useToast()
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {}
@@ -60,6 +62,7 @@ const Contact = () => {
       }, 5000)
     } catch (error) {
       setSubmitStatus('error')
+      showToast('Failed to send message. Please try again.', 'error')
       setTimeout(() => {
         setSubmitStatus('idle')
       }, 5000)

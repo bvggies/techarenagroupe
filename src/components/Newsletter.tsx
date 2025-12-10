@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMail, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
+import { useToast } from '../contexts/ToastContext'
+import Confetti from './Confetti'
 
 const Newsletter = () => {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const { showToast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -17,10 +21,16 @@ const Newsletter = () => {
 
     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('success')
+      setShowConfetti(true)
+      showToast('Successfully subscribed to newsletter!', 'success')
       setEmail('')
-      setTimeout(() => setStatus('idle'), 5000)
+      setTimeout(() => {
+        setStatus('idle')
+        setShowConfetti(false)
+      }, 5000)
     } else {
       setStatus('error')
+      showToast('Please enter a valid email address', 'error')
       setTimeout(() => setStatus('idle'), 5000)
     }
     setIsSubmitting(false)
@@ -92,6 +102,7 @@ const Newsletter = () => {
               </motion.div>
             )}
           </AnimatePresence>
+          <Confetti trigger={showConfetti} onComplete={() => setShowConfetti(false)} />
         </motion.div>
       </div>
     </section>

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSmartphone, FiGlobe, FiDatabase, FiLayers, FiMonitor, FiEye } from 'react-icons/fi'
+import { FiSmartphone, FiGlobe, FiDatabase, FiLayers, FiMonitor, FiEye, FiSearch, FiX } from 'react-icons/fi'
 import { projects, Project } from '../data/projects'
 import ProjectModal from './ProjectModal'
+import ImageLightbox from './ImageLightbox'
+import Tooltip from './Tooltip'
 
 const categoryIcons = {
   'mobile app': FiSmartphone,
@@ -22,16 +24,23 @@ const categoryColors = {
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
 
   const categories = ['all', ...Array.from(new Set(projects.map(p => p.category)))]
 
-  const filteredProjects =
-    selectedCategory === 'all'
-      ? projects
-      : projects.filter(p => p.category === selectedCategory)
+  const filteredProjects = projects.filter((project) => {
+    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory
+    const matchesSearch = searchQuery === '' || 
+      project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    return matchesCategory && matchesSearch
+  })
 
   // Auto-slide for featured projects
   useEffect(() => {
@@ -63,14 +72,38 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        {/* Category Filter */}
+        {/* Search and Category Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="mb-12"
         >
-          {categories.map((category) => (
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto mb-6">
+            <div className="relative">
+              <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-10 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 text-gray-800 dark:text-white placeholder-gray-400"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  <FiX className="w-5 h-5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
             <motion.button
               key={category}
               onClick={() => {
@@ -87,7 +120,8 @@ const Projects = () => {
             >
               {category === 'all' ? 'All Projects' : category.replace(/\b\w/g, l => l.toUpperCase())}
             </motion.button>
-          ))}
+            ))}
+          </div>
         </motion.div>
 
         {/* Featured Projects Slideshow */}
@@ -230,10 +264,12 @@ const Projects = () => {
 
                   {/* View Button */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg flex items-center space-x-2 text-gray-800 font-semibold">
-                      <FiEye className="w-5 h-5" />
-                      <span>View Details</span>
-                    </div>
+                    <Tooltip content="Click to view project details">
+                      <div className="px-4 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg flex items-center space-x-2 text-gray-800 dark:text-white font-semibold">
+                        <FiEye className="w-5 h-5" />
+                        <span>View Details</span>
+                      </div>
+                    </Tooltip>
                   </div>
                 </div>
 
@@ -260,6 +296,18 @@ const Projects = () => {
             )
           })}
         </div>
+
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12"
+          >
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              No projects found matching your search criteria.
+            </p>
+          </motion.div>
+        )}
       </div>
 
       {/* Project Modal */}
@@ -267,6 +315,14 @@ const Projects = () => {
         project={selectedProject}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+      <ImageLightbox
+        images={filteredProjects.map(p => p.screenshot)}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onNext={() => setLightboxIndex((prev) => (prev + 1) % filteredProjects.length)}
+        onPrev={() => setLightboxIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length)}
       />
     </section>
   )

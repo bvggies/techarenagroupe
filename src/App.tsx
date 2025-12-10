@@ -13,11 +13,13 @@ const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'))
 const Projects = lazy(() => import('./components/Projects'))
 const Pricing = lazy(() => import('./components/Pricing'))
 const Partners = lazy(() => import('./components/Partners'))
+const ProcessTimeline = lazy(() => import('./components/ProcessTimeline'))
 const Testimonials = lazy(() => import('./components/Testimonials'))
 const FAQ = lazy(() => import('./components/FAQ'))
 const Newsletter = lazy(() => import('./components/Newsletter'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
+const CookieConsent = lazy(() => import('./components/CookieConsent'))
 
 // Loading placeholder
 const LoadingPlaceholder = () => (
@@ -55,6 +57,7 @@ function App() {
         <Projects />
         <Pricing />
         <Partners />
+        <ProcessTimeline />
         <Testimonials />
         <FAQ />
         <Newsletter />
@@ -62,6 +65,7 @@ function App() {
         <Footer />
       </Suspense>
       <ScrollToTop />
+      <CookieConsent />
     </div>
   )
 }
