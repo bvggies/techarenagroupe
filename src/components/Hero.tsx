@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { FiArrowDown, FiCode, FiSmartphone, FiGlobe } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
 import CodeLoop from './CodeLoop'
-import CodeLoop from './CodeLoop'
 
 const Hero = () => {
   const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 })

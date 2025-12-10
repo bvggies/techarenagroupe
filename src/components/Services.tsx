@@ -6,7 +6,7 @@ import {
   FiCalendar,
   FiUsers,
   FiDatabase,
-  FiPalette,
+  FiLayers,
   FiCode,
   FiImage,
   FiMusic,
@@ -53,7 +53,7 @@ const services = [
     color: 'from-teal-500 to-cyan-500',
   },
   {
-    icon: FiPalette,
+    icon: FiLayers,
     title: 'UI/UX Design & Branding',
     description: 'Beautiful, intuitive designs that enhance user experience and brand identity.',
     color: 'from-pink-500 to-rose-500',

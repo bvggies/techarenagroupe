@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import { FiRocket, FiUsers, FiShield, FiMessageCircle, FiDollarSign } from 'react-icons/fi'
+import { FiZap, FiUsers, FiShield, FiMessageCircle, FiDollarSign } from 'react-icons/fi'
 
 const reasons = [
   {
-    icon: FiRocket,
+    icon: FiZap,
     title: 'Innovative Solutions',
     emoji: '🚀',
     description: 'Cutting-edge technology and creative approaches to solve your business challenges.',
