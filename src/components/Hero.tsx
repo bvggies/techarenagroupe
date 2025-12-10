@@ -15,11 +15,18 @@ const Hero = () => {
 
   useEffect(() => {
     setDimensions({ width: window.innerWidth, height: window.innerHeight })
+    let resizeTimer: number
     const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight })
+      clearTimeout(resizeTimer)
+      resizeTimer = window.setTimeout(() => {
+        setDimensions({ width: window.innerWidth, height: window.innerHeight })
+      }, 250) // Throttle resize
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimer)
+    }
   }, [])
 
   const techIcons = [

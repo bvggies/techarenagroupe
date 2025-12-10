@@ -41,9 +41,12 @@ const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
+    // Slower auto-play on mobile for better performance
+    const isMobile = window.innerWidth < 768
+    const interval = isMobile ? 7000 : 5000
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-    }, 5000)
+    }, interval)
     return () => clearInterval(timer)
   }, [])
 

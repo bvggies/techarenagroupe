@@ -20,7 +20,7 @@ const TechTicker = () => {
             x: {
               repeat: Infinity,
               repeatType: 'loop',
-              duration: 30,
+              duration: typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 30,
               ease: 'linear',
             },
           }}

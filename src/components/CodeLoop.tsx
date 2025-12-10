@@ -65,6 +65,11 @@ const CodeLoop = () => {
   const [charIndex, setCharIndex] = useState(0)
 
   useEffect(() => {
+    // Reduce animation speed on mobile for better performance
+    const isMobile = window.innerWidth < 768
+    const typeSpeed = isMobile ? 80 : 50
+    const deleteSpeed = isMobile ? 40 : 30
+    
     const currentSnippet = codeSnippets[currentIndex]
     const fullCode = currentSnippet.code
 
@@ -85,7 +90,7 @@ const CodeLoop = () => {
         setIsDeleting(false)
         setCurrentIndex((prev) => (prev + 1) % codeSnippets.length)
       }
-    }, isDeleting ? 30 : 50) // Faster when deleting
+    }, isDeleting ? deleteSpeed : typeSpeed) // Use dynamic speeds
 
     return () => clearTimeout(timeout)
   }, [charIndex, isDeleting, currentIndex])

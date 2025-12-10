@@ -42,12 +42,14 @@ const Projects = () => {
     return matchesCategory && matchesSearch
   })
 
-  // Auto-slide for featured projects
+  // Auto-slide for featured projects - slower on mobile for better performance
   useEffect(() => {
     if (filteredProjects.length > 0) {
+      const isMobile = window.innerWidth < 768
+      const interval = isMobile ? 6000 : 4000 // Slower on mobile
       const timer = setInterval(() => {
         setCurrentSlide(prev => (prev + 1) % Math.min(filteredProjects.length, 6))
-      }, 4000)
+      }, interval)
       return () => clearInterval(timer)
     }
   }, [filteredProjects.length])

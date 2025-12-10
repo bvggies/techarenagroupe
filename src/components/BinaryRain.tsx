@@ -10,14 +10,23 @@ const BinaryRain = () => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const isMobile = window.innerWidth < 768
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
+    
+    // Throttle resize for performance
+    let resizeTimer: number
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = window.setTimeout(resizeCanvas, 250)
+    }
+    window.addEventListener('resize', handleResize, { passive: true })
 
-    const fontSize = 14
+    // Larger font on mobile for better performance
+    const fontSize = isMobile ? 18 : 14
     const columns = Math.floor(canvas.width / fontSize)
     const drops: number[] = []
 
@@ -32,7 +41,9 @@ const BinaryRain = () => {
       ctx.fillStyle = '#0ea5e9'
       ctx.font = `${fontSize}px monospace`
 
-      for (let i = 0; i < drops.length; i++) {
+      // Optimize: skip some columns on mobile
+      const step = isMobile ? 2 : 1
+      for (let i = 0; i < drops.length; i += step) {
         const text = Math.random() > 0.5 ? '1' : '0'
         const x = i * fontSize
         const y = drops[i] * fontSize
@@ -47,10 +58,12 @@ const BinaryRain = () => {
       }
     }
 
-    const interval = setInterval(draw, 50)
+    // Slower update on mobile for better performance
+    const interval = setInterval(draw, isMobile ? 100 : 50)
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimer)
       clearInterval(interval)
     }
   }, [])

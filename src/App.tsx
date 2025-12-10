@@ -44,6 +44,20 @@ function App() {
     link.as = 'image'
     link.href = '/assets/logo.png'
     document.head.appendChild(link)
+
+    // Preconnect to improve resource loading
+    const preconnect = document.createElement('link')
+    preconnect.rel = 'preconnect'
+    preconnect.href = 'https://fonts.googleapis.com'
+    document.head.appendChild(preconnect)
+
+    // Optimize images - add loading="lazy" to all images
+    const images = document.querySelectorAll('img:not([loading])')
+    images.forEach((img) => {
+      if (!(img as HTMLImageElement).hasAttribute('loading')) {
+        ;(img as HTMLImageElement).loading = 'lazy'
+      }
+    })
   }, [])
 
   return (

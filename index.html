@@ -3,18 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/assets/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="TechArena Groupe - Professional web development, mobile apps, and custom software solutions. Building innovative tech solutions for your business." />
     <meta name="keywords" content="web development, mobile apps, software solutions, e-commerce, CRM, booking systems" />
-    <meta name="theme-color" content="#0ea5e9" />
-    <meta name="mobile-web-app-capable" content="yes" />
     <title>TechArena Groupe - Innovative Tech Solutions</title>
+    
+    <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/assets/logo.png" as="image" type="image/png" />
+    
+    <!-- Resource hints -->
+    <link rel="prefetch" href="/src/components/About.tsx" />
+    <link rel="prefetch" href="/src/components/Services.tsx" />
+    
+    <!-- Performance optimization -->
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
   </head>
-  <body>
+  <body style="will-change: scroll-position;">
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx" defer></script>
   </body>
 </html>
 

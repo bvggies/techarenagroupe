@@ -111,27 +111,29 @@ const TechStackVisualization = () => {
           })}
         </div>
 
-        {/* Floating Code Snippets */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, opacity: 0 }}
-              animate={{
-                y: [null, Math.random() * window.innerHeight],
-                opacity: [0, 0.1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                delay: i * 2,
-              }}
-              className="absolute text-xs font-mono text-primary-400"
-            >
-              {['const', 'function', 'async', 'await', 'return'][i]}()
-            </motion.div>
-          ))}
-        </div>
+        {/* Floating Code Snippets - Only on desktop for performance */}
+        {typeof window !== 'undefined' && window.innerWidth >= 768 && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200), y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800), opacity: 0 }}
+                animate={{
+                  y: [null, Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)],
+                  opacity: [0, 0.1, 0],
+                }}
+                transition={{
+                  duration: Math.random() * 10 + 10,
+                  repeat: Infinity,
+                  delay: i * 2,
+                }}
+                className="absolute text-xs font-mono text-primary-400"
+              >
+                {['const', 'function', 'async'][i]}()
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

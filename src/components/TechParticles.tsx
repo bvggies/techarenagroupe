@@ -19,15 +19,24 @@ const TechParticles = () => {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const isMobile = window.innerWidth < 768
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
+    
+    // Throttle resize for performance
+    let resizeTimer: number
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = window.setTimeout(resizeCanvas, 250)
+    }
+    window.addEventListener('resize', handleResize, { passive: true })
 
     const particles: Particle[] = []
-    const particleCount = 50
+    // Reduce particles on mobile for better performance
+    const particleCount = isMobile ? 20 : 50
     const colors = ['#0ea5e9', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']
 
     // Create particles
@@ -87,7 +96,8 @@ const TechParticles = () => {
     animate()
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(resizeTimer)
       cancelAnimationFrame(animationFrame)
     }
   }, [])
