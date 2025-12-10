@@ -41,13 +41,17 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             </button>
 
             {/* Project Image */}
-            <div className="relative h-64 md:h-80 bg-gray-100 overflow-hidden">
+            <div className="relative h-64 md:h-80 bg-gray-100 overflow-hidden flex items-center justify-center">
               <img
                 src={project.screenshot}
                 alt={project.name}
-                className="w-full h-full object-cover"
+                className={`max-w-full max-h-full ${
+                  project.category === 'mobile app' 
+                    ? 'object-contain p-4' 
+                    : 'object-cover w-full h-full'
+                }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
             </div>
 
             {/* Project Content */}
