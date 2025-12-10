@@ -1,23 +1,41 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import About from './components/About'
-import Services from './components/Services'
-import TechTicker from './components/TechTicker'
-import Features from './components/Features'
-import WhyChooseUs from './components/WhyChooseUs'
-import Projects from './components/Projects'
-import Pricing from './components/Pricing'
-import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import ScrollToTop from './components/ScrollToTop'
 import ScrollProgress from './components/ScrollProgress'
+import ScrollToTop from './components/ScrollToTop'
+
+// Lazy load components below the fold for better initial load
+const About = lazy(() => import('./components/About'))
+const Services = lazy(() => import('./components/Services'))
+const TechTicker = lazy(() => import('./components/TechTicker'))
+const Features = lazy(() => import('./components/Features'))
+const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'))
+const Projects = lazy(() => import('./components/Projects'))
+const Pricing = lazy(() => import('./components/Pricing'))
+const Testimonials = lazy(() => import('./components/Testimonials'))
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
+
+// Loading placeholder
+const LoadingPlaceholder = () => (
+  <div className="h-96 flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin" />
+  </div>
+)
 
 function App() {
   useEffect(() => {
-    // Smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth'
+    // Smooth scroll behavior - only on non-mobile for better performance
+    if (window.innerWidth > 768) {
+      document.documentElement.style.scrollBehavior = 'smooth'
+    }
+    
+    // Preload critical resources
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.href = '/assets/logo.png'
+    document.head.appendChild(link)
   }, [])
 
   return (
@@ -25,16 +43,18 @@ function App() {
       <ScrollProgress />
       <Header />
       <Hero />
-      <About />
-      <Services />
-      <TechTicker />
-      <Features />
-      <WhyChooseUs />
-      <Projects />
-      <Pricing />
-      <Testimonials />
-      <Contact />
-      <Footer />
+      <Suspense fallback={<LoadingPlaceholder />}>
+        <About />
+        <Services />
+        <TechTicker />
+        <Features />
+        <WhyChooseUs />
+        <Projects />
+        <Pricing />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </Suspense>
       <ScrollToTop />
     </div>
   )

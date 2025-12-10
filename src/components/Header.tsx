@@ -45,7 +45,9 @@ const Header = () => {
             <img
               src="/assets/logo.png"
               alt="TechArena Groupe Logo"
-              className="h-10 w-auto"
+              loading="eager"
+              decoding="async"
+              className="h-8 md:h-10 w-auto"
             />
             <span className="text-xl font-bold text-gradient">TechArena Groupe</span>
           </motion.a>

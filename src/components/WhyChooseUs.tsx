@@ -67,8 +67,12 @@ const WhyChooseUs = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-0 group-hover:opacity-10 rounded-2xl blur-xl transition-opacity duration-300" />
               <div className="relative h-full p-6 bg-gradient-to-br from-white to-primary-50 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center">
                 <motion.div
-                  className="text-5xl mb-4"
-                  animate={{ rotate: [0, 10, -10, 0] }}
+                  className="text-4xl md:text-5xl mb-4"
+                  animate={{ 
+                    rotate: typeof window !== 'undefined' && window.innerWidth < 768 
+                      ? 0 
+                      : [0, 10, -10, 0] 
+                  }}
                   transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
                 >
                   {reason.emoji}

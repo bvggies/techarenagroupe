@@ -213,6 +213,8 @@ const Projects = () => {
                   <img
                     src={project.screenshot}
                     alt={project.name}
+                    loading="lazy"
+                    decoding="async"
                     className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ${
                       project.category === 'mobile app' ? 'object-contain p-4' : 'object-cover'
                     }`}

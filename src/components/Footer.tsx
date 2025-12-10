@@ -8,26 +8,34 @@ const Footer = () => {
   const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
+    let ticking = false
+
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      const windowHeight = window.innerHeight
-      const documentHeight = document.documentElement.scrollHeight
-      
-      // Check if we're near the bottom of the page
-      const isNearBottom = currentScrollY + windowHeight >= documentHeight - 100
-      
-      if (isNearBottom) {
-        // Determine scroll direction
-        if (currentScrollY > lastScrollY) {
-          setScrollDirection('down')
-        } else if (currentScrollY < lastScrollY) {
-          setScrollDirection('up')
-        }
-      } else {
-        setScrollDirection('up')
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          const windowHeight = window.innerHeight
+          const documentHeight = document.documentElement.scrollHeight
+          
+          // Check if we're near the bottom of the page
+          const isNearBottom = currentScrollY + windowHeight >= documentHeight - 100
+          
+          if (isNearBottom) {
+            // Determine scroll direction
+            if (currentScrollY > lastScrollY) {
+              setScrollDirection('down')
+            } else if (currentScrollY < lastScrollY) {
+              setScrollDirection('up')
+            }
+          } else {
+            setScrollDirection('up')
+          }
+          
+          setLastScrollY(currentScrollY)
+          ticking = false
+        })
+        ticking = true
       }
-      
-      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })

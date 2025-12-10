@@ -23,9 +23,9 @@ const Hero = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50">
-      {/* Animated Background Elements */}
+      {/* Animated Background Elements - Reduced on mobile for performance */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => {
+        {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 20)].map((_, i) => {
           const randomX = Math.random() * dimensions.width
           const randomY = Math.random() * dimensions.height
           return (
@@ -45,6 +45,7 @@ const Hero = () => {
                 repeat: Infinity,
                 repeatType: 'loop',
               }}
+              style={{ willChange: 'transform' }}
             />
           )
         })}
@@ -67,7 +68,9 @@ const Hero = () => {
               <img
                 src="/assets/logo.png"
                 alt="TechArena Groupe"
-                className="h-20 w-auto mx-auto drop-shadow-lg"
+                loading="eager"
+                decoding="async"
+                className="h-16 md:h-20 w-auto mx-auto drop-shadow-lg"
               />
             </motion.div>
             <h1 className="text-5xl md:text-7xl font-bold mb-4">

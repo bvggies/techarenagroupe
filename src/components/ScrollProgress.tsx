@@ -5,17 +5,27 @@ const ScrollProgress = () => {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
+    let ticking = false
+
     const updateScrollProgress = () => {
       const scrollPx = document.documentElement.scrollTop
       const winHeightPx =
         document.documentElement.scrollHeight - document.documentElement.clientHeight
       const scrolled = winHeightPx > 0 ? (scrollPx / winHeightPx) * 100 : 0
       setScrollProgress(scrolled)
+      ticking = false
     }
 
-    window.addEventListener('scroll', updateScrollProgress)
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollProgress)
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
     updateScrollProgress() // Initial call
-    return () => window.removeEventListener('scroll', updateScrollProgress)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (

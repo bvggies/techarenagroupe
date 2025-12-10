@@ -45,6 +45,8 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
               <img
                 src={project.screenshot}
                 alt={project.name}
+                loading="eager"
+                decoding="async"
                 className={`max-w-full max-h-full ${
                   project.category === 'mobile app' 
                     ? 'object-contain p-4' 
