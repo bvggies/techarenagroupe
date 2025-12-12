@@ -111,9 +111,34 @@ const Hero = () => {
               />
             </motion.div>
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
-              <span className="text-gradient">Let's Build</span>
+              <motion.span
+                className="text-gradient-glow-light dark:text-gradient-glow-dark text-shimmer text-shimmer-light dark:text-shimmer-dark inline-block relative"
+                animate={{
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                Let's Build
+              </motion.span>
               <br />
-              <span className="text-gray-800 dark:text-white">Something Great</span>
+              <motion.span
+                className="text-glow-light dark:text-glow-dark inline-block text-gray-800 dark:text-white relative"
+                animate={{
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.5,
+                }}
+              >
+                Something Great
+              </motion.span>
             </h1>
           </motion.div>
 
