@@ -117,7 +117,7 @@ const Hero = () => {
                   scale: [1, 1.02, 1],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 1.5,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
@@ -131,10 +131,10 @@ const Hero = () => {
                   scale: [1, 1.02, 1],
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 1.5,
                   repeat: Infinity,
                   ease: 'easeInOut',
-                  delay: 0.5,
+                  delay: 0.25,
                 }}
               >
                 Something Great
