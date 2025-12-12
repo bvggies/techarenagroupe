@@ -8,6 +8,124 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Scroll-triggered animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* Scroll reveal classes */
+.scroll-reveal {
+  opacity: 0;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+}
+
+.scroll-reveal-up {
+  transform: translateY(50px);
+}
+
+.scroll-reveal-up.revealed {
+  transform: translateY(0);
+}
+
+.scroll-reveal-down {
+  transform: translateY(-50px);
+}
+
+.scroll-reveal-down.revealed {
+  transform: translateY(0);
+}
+
+.scroll-reveal-left {
+  transform: translateX(-50px);
+}
+
+.scroll-reveal-left.revealed {
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  transform: translateX(50px);
+}
+
+.scroll-reveal-right.revealed {
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  transform: scale(0.8);
+}
+
+.scroll-reveal-scale.revealed {
+  transform: scale(1);
+}
+
 /* Optimize animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -17,6 +135,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

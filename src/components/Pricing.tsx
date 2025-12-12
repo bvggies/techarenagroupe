@@ -65,8 +65,8 @@ const Pricing = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -81,11 +81,12 @@ const Pricing = () => {
           {packages.map((pkg, index) => (
             <motion.div
               key={pkg.name}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: 'easeOut' }}
               whileHover={{ y: -10, scale: 1.02 }}
+              style={{ willChange: 'transform, opacity' }}
               className={`relative ${
                 pkg.popular
                   ? 'md:-mt-4 md:mb-4 border-2 border-primary-500 shadow-2xl'

@@ -91,9 +91,9 @@ const Hero = () => {
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
             className="mb-6"
           >
             <motion.div
@@ -118,9 +118,9 @@ const Hero = () => {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: 'easeOut' }}
             className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto"
           >
             Innovative tech solutions for your business. We create responsive websites,
@@ -128,9 +128,9 @@ const Hero = () => {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: 'easeOut' }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <Ripple color="rgba(255, 255, 255, 0.6)">
@@ -157,9 +157,9 @@ const Hero = () => {
 
           {/* Coding Loop */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
             className="mb-12"
           >
             <CodeLoop />

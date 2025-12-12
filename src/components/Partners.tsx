@@ -17,8 +17,8 @@ const Partners = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center mb-12"
         >
           <div className="inline-block mb-4">
@@ -36,11 +36,12 @@ const Partners = () => {
           {partners.map((partner, index) => (
             <motion.div
               key={partner.name}
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: 'easeOut' }}
               whileHover={{ scale: 1.1, y: -5 }}
+              style={{ willChange: 'transform, opacity' }}
               className="flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
             >
               <div className="text-5xl mb-3">{partner.logo}</div>

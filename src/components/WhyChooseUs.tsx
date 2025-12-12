@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { FiZap, FiUsers, FiShield, FiMessageCircle, FiDollarSign } from 'react-icons/fi'
+import StaggerChildren from './StaggerChildren'
 
 const reasons = [
   {
@@ -41,8 +42,8 @@ const WhyChooseUs = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -53,17 +54,14 @@ const WhyChooseUs = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {reasons.map((reason, index) => (
-            <motion.div
-              key={reason.title}
-              initial={{ opacity: 0, y: 50, rotateY: -90 }}
-              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -10, rotateY: 5 }}
-              className="group relative"
-            >
+        <StaggerChildren staggerDelay={0.1} direction="up" distance={30}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {reasons.map((reason) => (
+              <motion.div
+                key={reason.title}
+                whileHover={{ y: -10, rotateY: 5 }}
+                className="group relative"
+              >
               <div className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 opacity-0 group-hover:opacity-10 rounded-2xl blur-xl transition-opacity duration-300" />
               <div className="relative h-full p-6 bg-gradient-to-br from-white to-primary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 text-center">
                 <motion.div
@@ -82,7 +80,8 @@ const WhyChooseUs = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+          </div>
+        </StaggerChildren>
       </div>
     </section>
   )

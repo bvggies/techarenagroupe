@@ -44,7 +44,7 @@ const steps = [
 
 const ProcessTimeline = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true, margin: '-50px' })
 
   return (
     <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-primary-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-primary-900/10 relative overflow-hidden">
@@ -59,7 +59,7 @@ const ProcessTimeline = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center mb-16"
         >
           <motion.div

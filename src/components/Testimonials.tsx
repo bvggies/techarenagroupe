@@ -65,8 +65,8 @@ const Testimonials = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-50px' }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -81,11 +81,12 @@ const Testimonials = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 100 }}
+              initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
               className="bg-gradient-to-br from-primary-50 to-white dark:from-gray-800 dark:to-gray-700 p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700"
+              style={{ willChange: 'transform, opacity' }}
             >
               <div className="flex items-center justify-center mb-6">
                 {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
@@ -111,7 +112,7 @@ const Testimonials = () => {
           <Ripple color="rgba(14, 165, 233, 0.2)">
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden"
+              className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden z-10"
               aria-label="Previous testimonial"
             >
               <FiChevronLeft className="w-6 h-6 text-primary-600" />
@@ -120,7 +121,7 @@ const Testimonials = () => {
           <Ripple color="rgba(14, 165, 233, 0.2)">
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden"
+              className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden z-10"
               aria-label="Next testimonial"
             >
               <FiChevronRight className="w-6 h-6 text-primary-600" />
