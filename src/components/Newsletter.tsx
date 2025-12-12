@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiMail, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
 import { useToast } from '../contexts/ToastContext'
 import Confetti from './Confetti'
+import Ripple from './Ripple'
 
 const Newsletter = () => {
   const [email, setEmail] = useState('')
@@ -67,15 +68,17 @@ const Newsletter = () => {
                 className="w-full px-6 py-4 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50"
               />
             </div>
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-            </motion.button>
+            <Ripple color="rgba(14, 165, 233, 0.3)">
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-primary-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap relative overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+              </motion.button>
+            </Ripple>
           </form>
 
           <AnimatePresence>

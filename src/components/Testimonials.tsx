@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import Ripple from './Ripple'
 
 const testimonials = [
   {
@@ -107,20 +108,24 @@ const Testimonials = () => {
           </AnimatePresence>
 
           {/* Navigation Buttons */}
-          <button
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Previous testimonial"
-          >
-            <FiChevronLeft className="w-6 h-6 text-primary-600" />
-          </button>
-          <button
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors"
-            aria-label="Next testimonial"
-          >
-            <FiChevronRight className="w-6 h-6 text-primary-600" />
-          </button>
+          <Ripple color="rgba(14, 165, 233, 0.2)">
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden"
+              aria-label="Previous testimonial"
+            >
+              <FiChevronLeft className="w-6 h-6 text-primary-600" />
+            </button>
+          </Ripple>
+          <Ripple color="rgba(14, 165, 233, 0.2)">
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-12 w-12 h-12 bg-white dark:bg-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden"
+              aria-label="Next testimonial"
+            >
+              <FiChevronRight className="w-6 h-6 text-primary-600" />
+            </button>
+          </Ripple>
 
           {/* Indicators */}
           <div className="flex justify-center space-x-2 mt-8">

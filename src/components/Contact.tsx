@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiPhone, FiMail, FiMessageCircle, FiSend, FiCheckCircle, FiAlertCircle } from 'react-icons/fi'
 import { useState } from 'react'
 import { useToast } from '../contexts/ToastContext'
+import Ripple from './Ripple'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -280,25 +281,27 @@ const Contact = () => {
                 )}
               </AnimatePresence>
 
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full px-6 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Send Message</span>
-                    <FiSend className="w-5 h-5" />
-                  </>
-                )}
-              </motion.button>
+              <Ripple color="rgba(14, 165, 233, 0.3)">
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-4 bg-white text-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                  whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <FiSend className="w-5 h-5" />
+                    </>
+                  )}
+                </motion.button>
+              </Ripple>
             </form>
           </motion.div>
         </div>

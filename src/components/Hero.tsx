@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { FiArrowDown, FiCode, FiSmartphone, FiGlobe } from 'react-icons/fi'
 import { useState, useEffect, useRef } from 'react'
 import CodeLoop from './CodeLoop'
+import Ripple from './Ripple'
 
 const Hero = () => {
   const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 })
@@ -132,22 +133,26 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
-            <motion.a
-              href="#contact"
-              className="px-8 py-4 bg-primary-600 text-white rounded-full font-semibold text-lg hover:bg-primary-700 transition-colors shadow-lg"
-              whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(14, 165, 233, 0.4)' }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Started Today
-            </motion.a>
-            <motion.a
-              href="#services"
-              className="px-8 py-4 bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 rounded-full font-semibold text-lg border-2 border-primary-600 dark:border-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Our Services
-            </motion.a>
+            <Ripple color="rgba(255, 255, 255, 0.6)">
+              <motion.a
+                href="#contact"
+                className="px-8 py-4 bg-primary-600 text-white rounded-full font-semibold text-lg hover:bg-primary-700 transition-colors shadow-lg relative overflow-hidden inline-block"
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(14, 165, 233, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started Today
+              </motion.a>
+            </Ripple>
+            <Ripple color="rgba(14, 165, 233, 0.3)">
+              <motion.a
+                href="#services"
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 rounded-full font-semibold text-lg border-2 border-primary-600 dark:border-primary-400 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden inline-block"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Our Services
+              </motion.a>
+            </Ripple>
           </motion.div>
 
           {/* Coding Loop */}

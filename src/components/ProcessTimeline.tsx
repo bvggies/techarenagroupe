@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { FiSearch, FiMessageSquare, FiCode, FiCheckCircle, FiArrowRight, FiZap } from 'react-icons/fi'
+import Ripple from './Ripple'
 
 const steps = [
   {
@@ -269,14 +270,16 @@ const ProcessTimeline = () => {
             transition={{ delay: 0.8 }}
             className="mt-20 text-center"
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer"
-            >
-              <span className="font-semibold text-lg">Ready to Start Your Project?</span>
-              <FiArrowRight className="w-5 h-5" />
-            </motion.div>
+            <Ripple color="rgba(255, 255, 255, 0.6)">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer relative overflow-hidden"
+              >
+                <span className="font-semibold text-lg">Ready to Start Your Project?</span>
+                <FiArrowRight className="w-5 h-5" />
+              </motion.div>
+            </Ripple>
           </motion.div>
         </div>
       </div>

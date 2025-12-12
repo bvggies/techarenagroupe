@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { FiCheck, FiX } from 'react-icons/fi'
+import Ripple from './Ripple'
 
 const packages = [
   {
@@ -122,18 +123,20 @@ const Pricing = () => {
                   ))}
                 </ul>
 
-                <motion.a
-                  href="#contact"
-                  className={`block w-full text-center py-3 px-6 rounded-lg font-semibold transition-colors ${
-                    pkg.popular
-                      ? 'bg-primary-600 text-white hover:bg-primary-700'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get Started
-                </motion.a>
+                <Ripple color={pkg.popular ? 'rgba(255, 255, 255, 0.6)' : 'rgba(14, 165, 233, 0.3)'}>
+                  <motion.a
+                    href="#contact"
+                    className={`block w-full text-center py-3 px-6 rounded-lg font-semibold transition-colors relative overflow-hidden ${
+                      pkg.popular
+                        ? 'bg-primary-600 text-white hover:bg-primary-700'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Get Started
+                  </motion.a>
+                </Ripple>
               </div>
             </motion.div>
           ))}

@@ -5,6 +5,7 @@ import { projects, Project } from '../data/projects'
 import ProjectModal from './ProjectModal'
 import ImageLightbox from './ImageLightbox'
 import Tooltip from './Tooltip'
+import Ripple from './Ripple'
 
 const categoryIcons = {
   'mobile app': FiSmartphone,
@@ -106,22 +107,26 @@ const Projects = () => {
           {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category)
-                setCurrentSlide(0)
-              }}
-              className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                selectedCategory === category
-                  ? 'bg-primary-600 text-white shadow-lg'
-                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category === 'all' ? 'All Projects' : category.replace(/\b\w/g, l => l.toUpperCase())}
-            </motion.button>
+              <Ripple 
+                key={category}
+                color={selectedCategory === category ? 'rgba(255, 255, 255, 0.6)' : 'rgba(14, 165, 233, 0.2)'}
+              >
+                <motion.button
+                  onClick={() => {
+                    setSelectedCategory(category)
+                    setCurrentSlide(0)
+                  }}
+                  className={`px-6 py-2 rounded-full font-semibold transition-all relative overflow-hidden ${
+                    selectedCategory === category
+                      ? 'bg-primary-600 text-white shadow-lg'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {category === 'all' ? 'All Projects' : category.replace(/\b\w/g, l => l.toUpperCase())}
+                </motion.button>
+              </Ripple>
             ))}
           </div>
         </motion.div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiChevronDown, FiHelpCircle } from 'react-icons/fi'
+import Ripple from './Ripple'
 
 const faqs = [
   {
@@ -67,10 +68,11 @@ const FAQ = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden"
             >
-              <button
-                onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-              >
+              <Ripple color="rgba(14, 165, 233, 0.2)">
+                <button
+                  onClick={() => toggleFAQ(index)}
+                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors relative overflow-hidden"
+                >
                 <span className="font-semibold text-gray-800 dark:text-white pr-4">
                   {faq.question}
                 </span>
@@ -78,9 +80,10 @@ const FAQ = () => {
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <FiChevronDown className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
-                </motion.div>
-              </button>
+                    <FiChevronDown className="w-5 h-5 text-primary-600 dark:text-primary-400 flex-shrink-0" />
+                  </motion.div>
+                </button>
+              </Ripple>
               <AnimatePresence>
                 {openIndex === index && (
                   <motion.div
