@@ -1,4 +1,5 @@
 import { useEffect, lazy, Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ScrollProgress from './components/ScrollProgress'
@@ -86,6 +87,7 @@ function App() {
       </Suspense>
       <ScrollToTop />
       <CookieConsent />
+      <Analytics />
     </div>
   )
 }
