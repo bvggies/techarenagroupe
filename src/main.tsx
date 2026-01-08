@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { ToastProvider } from './contexts/ToastContext'
+import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -10,6 +11,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ThemeProvider>
       <ToastProvider>
         <App />
+        <Analytics />
       </ToastProvider>
     </ThemeProvider>
   </React.StrictMode>,
