@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         } catch (dbError) {
           console.error('Direct DB access also failed:', dbError)
         }
+        return false
       }
     } catch (error) {
       console.error('Login error:', error)
