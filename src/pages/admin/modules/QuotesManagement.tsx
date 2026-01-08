@@ -1,13 +1,25 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiDollarSign, FiEdit, FiTrash2, FiSearch, FiClock } from 'react-icons/fi'
+import { FiPlus, FiEdit, FiTrash2, FiSearch, FiDollarSign, FiClock, FiSave } from 'react-icons/fi'
 import { useQuotes } from '../../../hooks/useAdminData'
 import { useToast } from '../../../contexts/ToastContext'
+import Modal from '../../../components/admin/Modal'
+import FormField from '../../../components/admin/FormField'
 
 const QuotesManagement = () => {
-  const { quotes, loading, error, updateQuote, deleteQuote } = useQuotes()
+  const { quotes, loading, error, createQuote, updateQuote, deleteQuote, fetchQuotes } = useQuotes()
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
+  const [showModal, setShowModal] = useState(false)
+  const [editingItem, setEditingItem] = useState<any>(null)
+  const [formData, setFormData] = useState({
+    clientName: '',
+    clientEmail: '',
+    projectType: '',
+    description: '',
+    budget: '',
+    status: 'pending',
+  })
   const { showToast } = useToast()
 
   const filteredQuotes = quotes.filter((quote) => {
@@ -18,6 +30,73 @@ const QuotesManagement = () => {
     const matchesStatus = statusFilter === 'all' || quote.status === statusFilter
     return matchesSearch && matchesStatus
   })
+
+  const handleOpenModal = (item?: any) => {
+    if (item) {
+      setEditingItem(item)
+      setFormData({
+        clientName: item.clientName || '',
+        clientEmail: item.clientEmail || '',
+        projectType: item.projectType || '',
+        description: item.description || '',
+        budget: item.budget?.toString() || '',
+        status: item.status || 'pending',
+      })
+    } else {
+      setEditingItem(null)
+      setFormData({
+        clientName: '',
+        clientEmail: '',
+        projectType: '',
+        description: '',
+        budget: '',
+        status: 'pending',
+      })
+    }
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setEditingItem(null)
+    setFormData({
+      clientName: '',
+      clientEmail: '',
+      projectType: '',
+      description: '',
+      budget: '',
+      status: 'pending',
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const submitData: any = {
+        clientName: formData.clientName,
+        clientEmail: formData.clientEmail,
+        projectType: formData.projectType,
+        description: formData.description,
+        status: formData.status,
+      }
+
+      if (formData.budget) {
+        submitData.budget = parseInt(formData.budget)
+      }
+
+      if (editingItem) {
+        await updateQuote(editingItem.id, submitData)
+        showToast('Quote updated successfully', 'success')
+      } else {
+        await createQuote(submitData)
+        showToast('Quote created successfully', 'success')
+      }
+      handleCloseModal()
+      fetchQuotes()
+    } catch (err: any) {
+      showToast(err.message || 'Failed to save quote', 'error')
+    }
+  }
 
   const handleStatusChange = async (id: number, newStatus: string) => {
     try {
@@ -47,32 +126,44 @@ const QuotesManagement = () => {
         return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
       case 'pending':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+      case 'completed':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
       default:
         return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
     }
   }
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Quotes Management</h2>
+    <div className="p-4 md:p-6 lg:p-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Quotes Management</h2>
+          <p className="text-gray-600 dark:text-gray-400">Manage client quotes and requests</p>
+        </div>
+        <button
+          onClick={() => handleOpenModal()}
+          className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 shadow-lg shadow-primary-500/30 font-medium"
+        >
+          <FiPlus size={20} />
+          <span>New Quote</span>
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="relative">
-          <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
             placeholder="Search quotes..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          className="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm"
         >
           <option value="all">All Statuses</option>
           <option value="pending">Pending</option>
@@ -84,12 +175,12 @@ const QuotesManagement = () => {
 
       {loading && (
         <div className="text-center py-12">
-          <div className="w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-12 h-12 border-4 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto" />
         </div>
       )}
 
       {error && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-6">
           <p className="text-red-600 dark:text-red-400">{error}</p>
         </div>
       )}
@@ -97,67 +188,70 @@ const QuotesManagement = () => {
       {!loading && !error && (
         <div className="grid grid-cols-1 gap-4">
           {filteredQuotes.length === 0 ? (
-            <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg">
-              <FiDollarSign className="mx-auto text-gray-400 mb-4" size={48} />
-              <p className="text-gray-600 dark:text-gray-400">No quotes found</p>
+            <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-2xl shadow-sm">
+              <FiDollarSign className="mx-auto text-gray-400 mb-4" size={64} />
+              <p className="text-gray-600 dark:text-gray-400 text-lg">No quotes found</p>
             </div>
           ) : (
-            filteredQuotes.map((quote) => (
+            filteredQuotes.map((quote, index) => (
               <motion.div
                 key={quote.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700"
+                transition={{ delay: index * 0.05 }}
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                      {quote.clientName}
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                      {quote.clientEmail}
-                    </p>
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {quote.projectType}
-                    </p>
+                    <div className="flex items-center space-x-3 mb-2">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{quote.clientName}</h3>
+                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(quote.status)}`}>
+                        {quote.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{quote.clientEmail}</p>
+                    <p className="text-base font-medium text-gray-700 dark:text-gray-300 mb-3">{quote.projectType}</p>
+                    <p className="text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">{quote.description}</p>
+                    <div className="flex items-center space-x-4 text-sm">
+                      {quote.budget && (
+                        <span className="text-gray-700 dark:text-gray-300 font-semibold flex items-center space-x-1">
+                          <FiDollarSign size={16} />
+                          <span>${quote.budget.toLocaleString()}</span>
+                        </span>
+                      )}
+                      <span className="text-gray-500 dark:text-gray-400 flex items-center space-x-1">
+                        <FiClock size={14} />
+                        <span>{new Date(quote.createdAt).toLocaleDateString()}</span>
+                      </span>
+                    </div>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(quote.status)}`}>
-                    {quote.status}
-                  </span>
                 </div>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                  {quote.description}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4 text-sm">
-                    {quote.budget && (
-                      <span className="text-gray-700 dark:text-gray-300 font-semibold">
-                        ${quote.budget.toLocaleString()}
-                      </span>
-                    )}
-                    <span className="text-gray-500 dark:text-gray-400 flex items-center space-x-1">
-                      <FiClock size={14} />
-                      <span>{new Date(quote.createdAt).toLocaleDateString()}</span>
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <select
+                    value={quote.status}
+                    onChange={(e) => handleStatusChange(quote.id, e.target.value)}
+                    className="px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  >
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="completed">Completed</option>
+                  </select>
                   <div className="flex items-center space-x-2">
-                    <select
-                      value={quote.status}
-                      onChange={(e) => handleStatusChange(quote.id, e.target.value)}
-                      className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    <button
+                      onClick={() => handleOpenModal(quote)}
+                      className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                      title="Edit"
                     >
-                      <option value="pending">Pending</option>
-                      <option value="approved">Approved</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="completed">Completed</option>
-                    </select>
+                      <FiEdit size={18} />
+                    </button>
                     <button
                       onClick={() => handleDelete(quote.id)}
                       className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                      title="Delete"
                     >
-                      <FiTrash2 />
+                      <FiTrash2 size={18} />
                     </button>
                   </div>
                 </div>
@@ -166,6 +260,98 @@ const QuotesManagement = () => {
           )}
         </div>
       )}
+
+      {/* Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={handleCloseModal}
+        title={editingItem ? 'Edit Quote' : 'Create New Quote'}
+        size="lg"
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <FormField
+            label="Client Name"
+            name="clientName"
+            type="text"
+            value={formData.clientName}
+            onChange={(value) => setFormData({ ...formData, clientName: value })}
+            placeholder="Enter client name"
+            required
+          />
+
+          <FormField
+            label="Client Email"
+            name="clientEmail"
+            type="email"
+            value={formData.clientEmail}
+            onChange={(value) => setFormData({ ...formData, clientEmail: value })}
+            placeholder="client@example.com"
+            required
+          />
+
+          <FormField
+            label="Project Type"
+            name="projectType"
+            type="text"
+            value={formData.projectType}
+            onChange={(value) => setFormData({ ...formData, projectType: value })}
+            placeholder="e.g., Website Development"
+            required
+          />
+
+          <FormField
+            label="Description"
+            name="description"
+            type="textarea"
+            value={formData.description}
+            onChange={(value) => setFormData({ ...formData, description: value })}
+            placeholder="Enter project description"
+            rows={6}
+            required
+          />
+
+          <FormField
+            label="Budget"
+            name="budget"
+            type="number"
+            value={formData.budget}
+            onChange={(value) => setFormData({ ...formData, budget: value })}
+            placeholder="Enter budget amount"
+          />
+
+          <FormField
+            label="Status"
+            name="status"
+            type="select"
+            value={formData.status}
+            onChange={(value) => setFormData({ ...formData, status: value })}
+            options={[
+              { value: 'pending', label: 'Pending' },
+              { value: 'approved', label: 'Approved' },
+              { value: 'rejected', label: 'Rejected' },
+              { value: 'completed', label: 'Completed' },
+            ]}
+            required
+          />
+
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-200 shadow-lg shadow-primary-500/30 font-medium"
+            >
+              <FiSave size={18} />
+              <span>{editingItem ? 'Update' : 'Create'}</span>
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   )
 }

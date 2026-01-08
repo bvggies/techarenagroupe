@@ -5,6 +5,7 @@ export interface UserPayload {
   id: number
   email: string
   role: string
+  name?: string
 }
 
 // Simple JWT decode for client-side (doesn't verify signature - that's done server-side)

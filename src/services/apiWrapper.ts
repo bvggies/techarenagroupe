@@ -115,6 +115,15 @@ export const wrappedQuotesAPI = {
       () => apiClient.quotesAPIClient.getAll()
     )
   },
+  async create(data: any) {
+    return useAPI(
+      async () => {
+        const api = await import('./api')
+        return api.quotesAPI.create(data)
+      },
+      () => apiClient.quotesAPIClient.create(data)
+    )
+  },
   async update(id: number, data: any) {
     return useAPI(
       async () => {
@@ -145,6 +154,15 @@ export const wrappedTicketsAPI = {
       () => apiClient.ticketsAPIClient.getAll()
     )
   },
+  async create(data: any) {
+    return useAPI(
+      async () => {
+        const api = await import('./api')
+        return api.ticketsAPI.create(data)
+      },
+      () => apiClient.ticketsAPIClient.create(data)
+    )
+  },
   async update(id: number, data: any) {
     return useAPI(
       async () => {
@@ -173,6 +191,15 @@ export const wrappedReviewsAPI = {
         return api.reviewsAPI.getAll()
       },
       () => apiClient.reviewsAPIClient.getAll()
+    )
+  },
+  async create(data: any) {
+    return useAPI(
+      async () => {
+        const api = await import('./api')
+        return api.reviewsAPI.create(data)
+      },
+      () => apiClient.reviewsAPIClient.create(data)
     )
   },
   async update(id: number, data: any) {

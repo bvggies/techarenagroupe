@@ -114,6 +114,16 @@ export function useQuotes() {
     }
   }
 
+  const createQuote = async (data: any) => {
+    try {
+      const newQuote = await api.wrappedQuotesAPI.create(data)
+      setQuotes((prev) => [newQuote, ...prev])
+      return newQuote
+    } catch (err) {
+      throw err
+    }
+  }
+
   const deleteQuote = async (id: number) => {
     try {
       await api.wrappedQuotesAPI.delete(id)
@@ -123,7 +133,7 @@ export function useQuotes() {
     }
   }
 
-  return { quotes, loading, error, fetchQuotes, updateQuote, deleteQuote }
+  return { quotes, loading, error, fetchQuotes, createQuote, updateQuote, deleteQuote }
 }
 
 // Tickets Hook
@@ -149,6 +159,16 @@ export function useTickets() {
     fetchTickets()
   }, [])
 
+  const createTicket = async (data: any) => {
+    try {
+      const newTicket = await api.wrappedTicketsAPI.create(data)
+      setTickets((prev) => [newTicket, ...prev])
+      return newTicket
+    } catch (err) {
+      throw err
+    }
+  }
+
   const updateTicket = async (id: number, data: any) => {
     try {
       const updated = await api.wrappedTicketsAPI.update(id, data)
@@ -168,7 +188,7 @@ export function useTickets() {
     }
   }
 
-  return { tickets, loading, error, fetchTickets, updateTicket, deleteTicket }
+  return { tickets, loading, error, fetchTickets, createTicket, updateTicket, deleteTicket }
 }
 
 // Reviews Hook
@@ -204,6 +224,16 @@ export function useReviews() {
     }
   }
 
+  const createReview = async (data: any) => {
+    try {
+      const newReview = await api.wrappedReviewsAPI.create(data)
+      setReviews((prev) => [newReview, ...prev])
+      return newReview
+    } catch (err) {
+      throw err
+    }
+  }
+
   const deleteReview = async (id: number) => {
     try {
       await api.wrappedReviewsAPI.delete(id)
@@ -213,7 +243,7 @@ export function useReviews() {
     }
   }
 
-  return { reviews, loading, error, fetchReviews, updateReview, deleteReview }
+  return { reviews, loading, error, fetchReviews, createReview, updateReview, deleteReview }
 }
 
 // Statuses Hook

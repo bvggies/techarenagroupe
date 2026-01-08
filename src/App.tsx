@@ -52,15 +52,7 @@ function MainApp() {
       document.documentElement.style.scrollBehavior = 'smooth'
     }
     
-    // Preload critical resources (only if logo exists)
-    const logoExists = document.querySelector('img[src*="logo"]')
-    if (!logoExists) {
-      const link = document.createElement('link')
-      link.rel = 'preload'
-      link.as = 'image'
-      link.href = '/assets/logo.png'
-      document.head.appendChild(link)
-    }
+    // Logo preload removed - not critical for initial render
 
     // Preconnect to improve resource loading
     const preconnect = document.createElement('link')
