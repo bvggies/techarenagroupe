@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.setItem('admin_token', result.token)
           return true
         }
+        // If response is not OK, fall through to error handling
+        throw new Error('Login failed')
       } catch (apiError) {
         // Fallback to direct DB access in development
         console.log('API endpoint not available, using direct DB access')
