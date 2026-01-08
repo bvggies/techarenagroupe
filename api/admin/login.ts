@@ -16,6 +16,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Check if database connection is available
+    if (!process.env.DATABASE_URL) {
+      console.error('DATABASE_URL environment variable is not set')
+      return res.status(500).json({ error: 'Database configuration error' })
+    }
+
     const [user] = await db
       .select()
       .from(schema.users)
@@ -48,6 +54,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
   } catch (error) {
     console.error('Login error:', error)
-    return res.status(500).json({ error: 'Internal server error' })
+    // Return more detailed error in development
+    const errorMessage = error instanceof Error ? error.message : 'Internal server error'
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    })
   }
 }
