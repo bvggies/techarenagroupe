@@ -14,8 +14,24 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     rollupOptions: {
+      external: (id) => {
+        // Exclude Node.js modules from browser bundle
+        if (id.includes('pg') || id.includes('jsonwebtoken') || id.includes('bcryptjs') || 
+            id.includes('drizzle-orm') || id.includes('drizzle-kit') || 
+            id === 'crypto' || id === 'fs' || id === 'path' || id === 'os' || 
+            id === 'net' || id === 'tls' || id === 'stream' || id === 'util' || 
+            id === 'events' || id === 'dns' || id === 'string_decoder') {
+          return true;
+        }
+        return false;
+      },
       output: {
         manualChunks(id) {
+          // Skip Node.js modules
+          if (id.includes('pg') || id.includes('jsonwebtoken') || id.includes('bcryptjs') || 
+              id.includes('drizzle-orm') || id.includes('drizzle-kit')) {
+            return;
+          }
           if (id.includes('node_modules')) {
             if (id.includes('framer-motion')) {
               return 'framer-motion';
@@ -40,7 +56,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion'],
-    exclude: []
+    exclude: ['pg', 'jsonwebtoken', 'bcryptjs', 'drizzle-orm', 'drizzle-kit']
   },
   server: {
     headers: {
