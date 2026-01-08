@@ -31,7 +31,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(401).json({ error: 'Invalid credentials' })
     }
 
-    const token = generateToken({
+    const token = await generateToken({
       id: user.id,
       email: user.email,
       role: user.role,
