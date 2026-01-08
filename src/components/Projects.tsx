@@ -51,7 +51,7 @@ const Projects = () => {
       const timer = setInterval(() => {
         setCurrentSlide(prev => (prev + 1) % Math.min(filteredProjects.length, 6))
       }, interval)
-      return () => clearInterval(timer)
+      return () => clearInterval(timer as any)
     }
   }, [filteredProjects.length])
 

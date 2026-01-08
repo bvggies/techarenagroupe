@@ -48,7 +48,7 @@ const Testimonials = () => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
     }, interval)
-    return () => clearInterval(timer)
+    return () => clearInterval(timer as any)
   }, [])
 
   const nextTestimonial = () => {

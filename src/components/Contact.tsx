@@ -3,12 +3,15 @@ import { FiPhone, FiMail, FiMessageCircle, FiSend, FiCheckCircle, FiAlertCircle 
 import { useState } from 'react'
 import { useToast } from '../contexts/ToastContext'
 import Ripple from './Ripple'
+import { formRateLimiter } from '../utils/rateLimiter'
+import { botProtector } from '../utils/botProtection'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
+    website_url: '', // Honeypot field
   })
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -41,7 +44,30 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // Check honeypot field
+    if (botProtector.validateHoneypot(formData)) {
+      showToast('Bot detected. Submission blocked.', 'error')
+      return
+    }
+
+    // Rate limiting check
+    const clientId = formData.email || 'anonymous'
+    const rateLimit = formRateLimiter.checkLimit(clientId)
+    
+    if (!rateLimit.allowed) {
+      const resetTime = new Date(rateLimit.resetTime).toLocaleTimeString()
+      showToast(`Too many requests. Please try again after ${resetTime}`, 'error')
+      return
+    }
+
     if (!validateForm()) {
+      return
+    }
+
+    // Bot detection
+    const botDetection = botProtector.detectBot(formData, navigator.userAgent)
+    if (botDetection.isBot) {
+      showToast('Suspicious activity detected. Please try again.', 'error')
       return
     }
 
@@ -56,7 +82,7 @@ const Contact = () => {
       window.location.href = mailtoLink
       
       setSubmitStatus('success')
-      setFormData({ name: '', email: '', message: '' })
+      setFormData({ name: '', email: '', message: '', website_url: '' })
       
       setTimeout(() => {
         setSubmitStatus('idle')
@@ -169,6 +195,17 @@ const Contact = () => {
             className="bg-white/10 dark:bg-gray-800/30 backdrop-blur-md rounded-2xl p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field - hidden from users */}
+              <input
+                type="text"
+                name="website_url"
+                value={formData.website_url}
+                onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
+                style={botProtector.generateHoneypotField().style}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold mb-2">
                   Your Name

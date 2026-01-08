@@ -63,8 +63,8 @@ const BinaryRain = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      clearTimeout(resizeTimer)
-      clearInterval(interval)
+      clearTimeout(resizeTimer as any)
+      clearInterval(interval as any)
     }
   }, [])
 

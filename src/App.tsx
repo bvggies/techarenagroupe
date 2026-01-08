@@ -1,4 +1,6 @@
 import { useEffect, lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ScrollProgress from './components/ScrollProgress'
@@ -6,6 +8,9 @@ import ScrollToTop from './components/ScrollToTop'
 import TechParticles from './components/TechParticles'
 import BinaryRain from './components/BinaryRain'
 import TechStackVisualization from './components/TechStackVisualization'
+import AdminLogin from './pages/admin/AdminLogin'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import { useAuth } from './contexts/AuthContext'
 
 // Lazy load components below the fold for better initial load
 const About = lazy(() => import('./components/About'))
@@ -18,6 +23,9 @@ const Pricing = lazy(() => import('./components/Pricing'))
 const Partners = lazy(() => import('./components/Partners'))
 const ProcessTimeline = lazy(() => import('./components/ProcessTimeline'))
 const Testimonials = lazy(() => import('./components/Testimonials'))
+const Reviews = lazy(() => import('./components/Reviews'))
+const ProgressIndicators = lazy(() => import('./components/ProgressIndicators'))
+const LiveStatusIndicators = lazy(() => import('./components/LiveStatusIndicators'))
 const FAQ = lazy(() => import('./components/FAQ'))
 const Newsletter = lazy(() => import('./components/Newsletter'))
 const Contact = lazy(() => import('./components/Contact'))
@@ -31,7 +39,13 @@ const LoadingPlaceholder = () => (
   </div>
 )
 
-function App() {
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useAuth()
+  return isAuthenticated ? <>{children}</> : <Navigate to="/admin/login" replace />
+}
+
+function MainApp() {
   useEffect(() => {
     // Smooth scroll behavior - only on non-mobile for better performance
     if (window.innerWidth > 768) {
@@ -79,6 +93,9 @@ function App() {
         <Partners />
         <ProcessTimeline />
         <Testimonials />
+        <Reviews />
+        <ProgressIndicators />
+        <LiveStatusIndicators />
         <FAQ />
         <Newsletter />
         <Contact />
@@ -90,5 +107,25 @@ function App() {
   )
 }
 
-export default App
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/*" element={<MainApp />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  )
+}
 
+export default App
