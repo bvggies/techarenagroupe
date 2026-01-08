@@ -10,18 +10,26 @@ async function useAPI<T>(apiCall: () => Promise<T>, clientCall: () => Promise<T>
     window.location.hostname !== 'localhost' && 
     window.location.hostname !== '127.0.0.1'
 
+  // NEVER import api.ts in production - it contains Node.js modules
   if (isProduction) {
     // Always use API client in production
     return await clientCall()
   }
   
-  // Development: use direct DB access via dynamic import
-  try {
-    return await apiCall()
-  } catch (error) {
-    console.warn('Direct DB access failed, falling back to API:', error)
-    return await clientCall()
+  // Development only: use direct DB access via dynamic import
+  // This will only work on localhost
+  if (typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    try {
+      return await apiCall()
+    } catch (error) {
+      console.warn('Direct DB access failed, falling back to API:', error)
+      return await clientCall()
+    }
   }
+  
+  // Fallback to API client
+  return await clientCall()
 }
 
 // Wrapped APIs that work in both dev and production
