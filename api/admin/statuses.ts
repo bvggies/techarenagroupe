@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { statusesAPI } from '../../src/services/api'
+import { statusesAPI } from '../../lib/services/api.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {

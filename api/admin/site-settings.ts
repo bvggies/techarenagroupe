@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { siteSettingsAPI } from '../../src/services/api'
+import { siteSettingsAPI } from '../../lib/services/api.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {

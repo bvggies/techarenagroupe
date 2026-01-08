@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { db } from '../../src/db/connection'
-import * as schema from '../../src/db/schema'
+import { db } from '../../lib/db/connection.js'
+import * as schema from '../../lib/db/schema.js'
 import { eq } from 'drizzle-orm'
-import { generateToken, comparePassword } from '../../src/utils/auth'
+import { generateToken, comparePassword } from '../../lib/utils/auth.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {

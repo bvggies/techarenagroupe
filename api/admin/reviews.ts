@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { reviewsAPI } from '../../src/services/api'
+import { reviewsAPI } from '../../lib/services/api.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {

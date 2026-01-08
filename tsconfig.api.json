@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "@vercel/node"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "lib": ["ES2020"]
+  },
+  "include": ["api/**/*", "lib/**/*", "src/**/*"],
+  "exclude": ["node_modules", "dist", ".vercel"]
+}
