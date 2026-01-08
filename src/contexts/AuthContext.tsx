@@ -49,16 +49,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } catch (apiError) {
         // Fallback to direct DB access in development
         console.log('API endpoint not available, using direct DB access')
+        try {
+          // Only try direct DB access in development (localhost)
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const { wrappedAuthAPI } = await import('../services/apiWrapper')
+            const result = await wrappedAuthAPI.login(email, password)
+            const token = result.token
+            setToken(token)
+            setUser(result.user)
+            localStorage.setItem('admin_token', token)
+            return true
+          }
+        } catch (dbError) {
+          console.error('Direct DB access also failed:', dbError)
+        }
       }
-
-      // Direct DB access (development fallback)
-      const { authAPI } = await import('../services/api')
-      const result = await authAPI.login(email, password)
-      const token = result.token
-      setToken(token)
-      setUser(result.user)
-      localStorage.setItem('admin_token', token)
-      return true
     } catch (error) {
       console.error('Login error:', error)
       return false
