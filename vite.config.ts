@@ -15,12 +15,14 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: (id) => {
-        // Exclude Node.js modules from browser bundle
+        // Exclude Node.js modules and database files from browser bundle
         if (id.includes('pg') || id.includes('jsonwebtoken') || id.includes('bcryptjs') || 
             id.includes('drizzle-orm') || id.includes('drizzle-kit') || 
-            id === 'crypto' || id === 'fs' || id === 'path' || id === 'os' || 
-            id === 'net' || id === 'tls' || id === 'stream' || id === 'util' || 
-            id === 'events' || id === 'dns' || id === 'string_decoder') {
+            id.includes('dotenv') || id.includes('src/db/') || id.includes('src/services/api.ts') ||
+            id === 'crypto' || id === 'fs' || id === 'node:fs' || id === 'path' || id === 'node:path' ||
+            id === 'os' || id === 'node:os' || id === 'net' || id === 'tls' || 
+            id === 'stream' || id === 'util' || id === 'node:util' ||
+            id === 'events' || id === 'node:events' || id === 'dns' || id === 'string_decoder') {
           return true;
         }
         return false;
@@ -56,7 +58,23 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion'],
-    exclude: ['pg', 'jsonwebtoken', 'bcryptjs', 'drizzle-orm', 'drizzle-kit']
+    exclude: ['pg', 'jsonwebtoken', 'bcryptjs', 'drizzle-orm', 'drizzle-kit', 'dotenv']
+  },
+  resolve: {
+    alias: {
+      // Prevent Node.js modules from being bundled
+      'fs': false,
+      'path': false,
+      'os': false,
+      'crypto': false,
+      'net': false,
+      'tls': false,
+      'stream': false,
+      'util': false,
+      'events': false,
+      'dns': false,
+      'string_decoder': false,
+    }
   },
   server: {
     headers: {
